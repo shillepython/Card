@@ -92,3 +92,23 @@ class BJ_Game:
                 if not player.is_busted():
                     sp.append(player)
             return sp
+
+    def __addtional_cards(self, player):
+        while not player.is_busted() and player.is_hitting():
+            self.deck.deal([player])
+            print(player)
+            if player.is_busted():
+                player.bust()
+    
+    def play(self):
+        self.deck.deal(self.players + [self.dealer], per_hand = 2)
+        self.dealer.flip_first_card()
+
+        for player in self.players:
+            print(player)
+        print(self.dealer)
+        
+        for player in self.players:
+            self.__addtional_cards(player)
+
+        self.dealer.flip_first_card()
